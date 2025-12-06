@@ -1,0 +1,30 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: category-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/category
+    username: postgres
+    password: 5432
+    driverClassName: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+info:
+  app:
+    name: category-service
+    description: micro service for tracking expenses
+    version: 1.0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,beans,metrics
+  info:
+    env:
+      enabled: true
