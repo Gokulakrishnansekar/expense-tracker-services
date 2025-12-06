@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.tracker.expense_tracker.ExpenseTrackerApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 39.03 s -- in com.tracker.expense_tracker.ExpenseTrackerApplicationTests

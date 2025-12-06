@@ -1,0 +1,11 @@
+com\tracker\expense_tracker\ExpenseTrackerApplication.class
+com\tracker\expense_tracker\service\ExpenseService.class
+com\tracker\expense_tracker\specification\ExpenseSpecificationFilter.class
+com\tracker\expense_tracker\model\CategoryClient.class
+com\tracker\expense_tracker\model\CategoryClientFallback.class
+com\tracker\expense_tracker\repository\ExpensesRepository.class
+com\tracker\expense_tracker\controller\ExpensesController.class
+com\tracker\expense_tracker\Entity\Expense.class
+com\tracker\expense_tracker\exception_handling\GlobalExceptionHandler.class
+com\tracker\expense_tracker\specification\ExpenseSpecification.class
+com\tracker\expense_tracker\exception_handling\ExpenseNotFoundException.class
