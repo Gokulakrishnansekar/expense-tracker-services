@@ -1,0 +1,65 @@
+
+server:
+  port: 8081
+
+profile: local
+
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          loadbalancer: DEBUG
+          openfeign: DEBUG
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: expense-tracker
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/Expense-Tracker
+    username: postgres
+    password: postgres
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+info:
+  app:
+    name: Expense-tracker
+    description: for tracking expenses
+    version: 1.0
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include:  health,info,metrics,prometheus,threaddump,env
+  endpoint:
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      category-service: # Specific configuration for an instance
+        registerHealthIndicator: true
+        slidingWindowSize: 5
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 6
+        waitDurationInOpenState: 3s
+        slidingWindowType: COUNT_BASED
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+
+
