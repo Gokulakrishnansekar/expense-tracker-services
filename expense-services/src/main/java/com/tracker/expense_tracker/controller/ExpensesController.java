@@ -20,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/expenses")
+@CrossOrigin("*")
 public class ExpensesController {
     public  final ExpenseService expenseService;
     public ExpensesController( ExpenseService expenseService){

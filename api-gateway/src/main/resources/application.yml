@@ -8,16 +8,36 @@ spring:
     gateway:
       server:
         webflux:
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
           routes:
             - id: category-service
               uri: lb://CATEGORY-SERVICE
               predicates:
                 - Path=/api/category/**
+              filters:
+                - RewritePath=/api/category/v3/api-docs, /v3/api-docs
+
 
             - id: expense-tracker
               uri: lb://EXPENSE-TRACKER
               predicates:
                 - Path=/api/expenses/**
+              filters:
+                - RewritePath=/api/expenses/v3/api-docs, /v3/api-docs
+
+
+
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: category-service
+        url: /api/category/v3/api-docs
+      - name: expense-tracker
+        url: /api/expenses/v3/api-docs
 
 
 logging:

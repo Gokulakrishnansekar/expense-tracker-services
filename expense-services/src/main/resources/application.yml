@@ -16,6 +16,13 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+  override-with-gateway-url: true
+
 spring:
   application:
     name: expense-tracker
@@ -23,7 +30,7 @@ spring:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/Expense-Tracker
     username: postgres
-    password: postgres
+    password: 5432
   jpa:
     show-sql: true
     hibernate:
@@ -61,5 +68,9 @@ resilience4j:
         waitDurationInOpenState: 3s
         slidingWindowType: COUNT_BASED
         automaticTransitionFromOpenToHalfOpenEnabled: true
+
+
+
+
 
 

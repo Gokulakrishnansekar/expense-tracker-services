@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/category")
+@CrossOrigin("*")
 public class CategoryController {
 
     private CategoryService categoryService;
@@ -21,25 +22,25 @@ public class CategoryController {
         this.categoryService=categoryService;
     }
     @Operation(description = "Get Category")
-    @GetMapping("/category")
+    @GetMapping("/")
      public List<CategoryDto> getAllCategory(){
       return   categoryService.getAllCategory();
     }
 
     @Operation(description = "Get Category by Id")
-    @GetMapping("/category/{id}")
+    @GetMapping("/{id}")
     public CategoryDto getCategoryById(@PathVariable() Long id){
         return   categoryService.getCategoryById(id);
     }
 
     @Operation(description = "create  Category")
-    @PostMapping("/category")
+    @PostMapping("/")
     public CategoryDto createCategory(@RequestBody() CategoryReqDto categoryDto){
         return  categoryService.createCategory(categoryDto);
     }
 
     @Operation(description = "update  Category")
-    @PutMapping("/category/{id}")
+    @PutMapping("/{id}")
     public CategoryDto updateCategory(@PathVariable Long id,@RequestParam() CategoryDto categoryDto){
 
         return  categoryService.updateCategory(id,categoryDto);

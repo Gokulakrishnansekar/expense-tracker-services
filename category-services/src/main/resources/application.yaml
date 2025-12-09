@@ -1,6 +1,7 @@
 server:
   port: 8085
 
+
 spring:
   application:
     name: category-service
@@ -28,3 +29,5 @@ management:
   info:
     env:
       enabled: true
+
+
