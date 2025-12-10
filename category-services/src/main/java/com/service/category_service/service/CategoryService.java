@@ -3,6 +3,7 @@ package com.service.category_service.service;
 import com.service.category_service.dto.CategoryDto;
 import com.service.category_service.dto.CategoryReqDto;
 import com.service.category_service.entity.CategoryEntity;
+import com.service.category_service.kafka_producer.CategoryEventProducer;
 import com.service.category_service.repository.CategoryRepo;
 import com.sun.jdi.event.ExceptionEvent;
 import lombok.extern.slf4j.Slf4j;
@@ -21,15 +22,14 @@ public class CategoryService {
 
     @Autowired
     private CategoryRepo categoryRepo;
-@Value("${server.port}")
-String port;
 
+    @Autowired
+    private CategoryEventProducer categoryEventProducer;
     public List<CategoryDto> getAllCategory(){
        return categoryRepo.findAll().stream().map(categoryEntity->new CategoryDto(categoryEntity.getId(),categoryEntity.getName(),categoryEntity.getDescription())).toList();
     }
 
     public CategoryDto getCategoryById(Long id){
-        log.warn(port);
         CategoryEntity category =categoryRepo.findById(id).orElseThrow();
         return new CategoryDto(category.getId(),category.getName(),category.getDescription());
     }
@@ -61,11 +61,11 @@ String port;
 
     }
     public ResponseEntity<String> deleteCategory(Long id) {
-        CategoryEntity c= categoryRepo.findById(id).orElseThrow(()-> new NoSuchElementException("no category exists with "+id));
-
-           categoryRepo.deleteById(id);
+//        CategoryEntity c= categoryRepo.findById(id).orElseThrow(()-> new NoSuchElementException("no category exists with "+id));
+//
+//           categoryRepo.deleteById(id);
+        System.out.println("deletion service");
+        categoryEventProducer.sendCategoryDeleted(id);
            return new ResponseEntity<>("successfully deleted",HttpStatus.OK);
-
-
     }
 }
