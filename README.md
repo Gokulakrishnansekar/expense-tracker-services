@@ -1,33 +1,9 @@
-📘 Microservices Architecture — Category & Expense System
+Microservices Architecture — Category & Expense System
 
 A hands-on implementation of a production-style microservices architecture built using Spring Boot, Spring Cloud, Kafka, Redis, Eureka, and API Gateway.
 This project demonstrates service discovery, distributed caching, event-driven communication, resilience patterns, and centralized API documentation.
 
-🏗️ Architecture Overview
-                         ┌─────────────────┐
-                         │     Client      │
-                         └────────┬────────┘
-                                  │
-                          API Gateway (8080)
-                 ┌───────────────┼────────────────┐
-                 │                                │
-     ┌─────────────────────┐          ┌───────────────────────┐
-     │ Category Service    │          │ Expense Service        │
-     │ Port: 8085          │          │ Port: 8081             │
-     │ CRUD + Cache        │          │ CRUD + Category Cleanup │
-     └──────────┬──────────┘          └───────────┬────────────┘
-                │                                   │
-         Publishes Event                     Consumes Event
-                │                                   │
-         ┌──────▼────────┐                 ┌────────▼─────────┐
-         │   Kafka Topic │  <-- Async -->  │ Kafka Listener    │
-         └──────┬────────┘                 └────────┬─────────┘
-                │                                   │
-   ┌────────────▼────────────┐       ┌──────────────▼────────────┐
-   │ PostgreSQL (Category)   │       │ PostgreSQL (Expense)       │
-   └─────────────────────────┘       └────────────────────────────┘
 
-                Redis (Distributed Cache)
 
 🚀 Features
 ✅ 1. Microservices
