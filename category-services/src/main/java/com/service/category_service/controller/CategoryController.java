@@ -16,7 +16,7 @@ import java.util.List;
 @CrossOrigin("*")
 public class CategoryController {
 
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
 
 
     public String  port;

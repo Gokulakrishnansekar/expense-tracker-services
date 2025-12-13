@@ -58,11 +58,10 @@ public class CategoryService {
 
     }
     public ResponseEntity<String> deleteCategory(Long id) {
-//        CategoryEntity c= categoryRepo.findById(id).orElseThrow(()-> new NoSuchElementException("no category exists with "+id));
-//
-//           categoryRepo.deleteById(id);
-        System.out.println("deletion service");
-        categoryEventHandler.sendCategoryDeleted(id);
+       CategoryEntity c= categoryRepo.findById(id).orElseThrow(()-> new RuntimeException("no category exists with "+id));
+
+
+        categoryEventHandler.sendCategoryDeleted(c.getId());
            return new ResponseEntity<>("successfully deleted",HttpStatus.OK);
     }
 }

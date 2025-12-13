@@ -1,5 +1,6 @@
 package com.tracker.expense_tracker.Entity;
 
+import com.tracker.shared_services.kafka.constants.Status;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -10,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.kafka.common.metrics.Stat;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CurrentTimestamp;
 
 import java.time.LocalDate;
@@ -52,6 +55,10 @@ public class Expense {
     @Column(name="created_date")
     @CurrentTimestamp()
     private String createDate;
+
+    @Column(name="status")
+    @Enumerated( EnumType.STRING)
+    private Status status=Status.Active;
 
     @Override
     public String toString() {

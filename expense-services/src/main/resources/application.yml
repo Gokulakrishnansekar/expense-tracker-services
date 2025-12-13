@@ -43,7 +43,7 @@ spring:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/Expense-Tracker
     username: postgres
-    password: 5432
+    password: postgres
   jpa:
     show-sql: true
     hibernate:
