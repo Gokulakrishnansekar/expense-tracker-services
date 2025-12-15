@@ -19,7 +19,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/category
     username: postgres
-    password: postgres
+    password: 5432
     driverClassName: org.postgresql.Driver
   jpa:
     show-sql: true

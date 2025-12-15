@@ -61,7 +61,7 @@ public class CategoryService {
        CategoryEntity c= categoryRepo.findById(id).orElseThrow(()-> new RuntimeException("no category exists with "+id));
 
 
-        categoryEventHandler.sendCategoryDeleted(c.getId());
-           return new ResponseEntity<>("successfully deleted",HttpStatus.OK);
+        categoryEventHandler.sendCategoryDeleted(c.getId(),c);
+           return new ResponseEntity<>("Started category deletion",HttpStatus.ACCEPTED);
     }
 }
