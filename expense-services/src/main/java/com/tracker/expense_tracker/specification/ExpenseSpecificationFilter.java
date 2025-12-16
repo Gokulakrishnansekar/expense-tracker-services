@@ -7,6 +7,6 @@ import lombok.Data;
 public class ExpenseSpecificationFilter {
     private Long minAmount;
     private  Long maxAmount;
-    private  String category;
+
     private String userName;
 }

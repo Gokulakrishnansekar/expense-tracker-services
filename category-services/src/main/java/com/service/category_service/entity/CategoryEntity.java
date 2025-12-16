@@ -5,6 +5,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.cglib.core.Local;
+
+import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "category")
@@ -19,10 +23,11 @@ public class CategoryEntity {
         this.description = description;
     }
 
-    public CategoryEntity(long id, String name, String description) {
+    public CategoryEntity(long id, String name, String description, LocalDate lastModifiedDate) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.lastModifiedDate=lastModifiedDate;
     }
 
     @Id
@@ -39,4 +44,7 @@ public class CategoryEntity {
     @Column(name="status")
     @Enumerated( EnumType.STRING)
     private Status status=Status.Active;
+
+    @Column(name = "last_modified_date")
+    private LocalDate lastModifiedDate;
 }

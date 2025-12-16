@@ -5,12 +5,15 @@ import com.service.category_service.dto.CategoryReqDto;
 import com.service.category_service.entity.CategoryEntity;
 import com.service.category_service.kafka_producer.CategoryEventHandler;
 import com.service.category_service.repository.CategoryRepo;
+import com.tracker.shared_services.kafka.constants.Status;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -23,11 +26,11 @@ public class CategoryService {
     @Autowired
     private CategoryEventHandler categoryEventHandler;
     public List<CategoryDto> getAllCategory(){
-       return categoryRepo.findAll().stream().map(categoryEntity->new CategoryDto(categoryEntity.getId(),categoryEntity.getName(),categoryEntity.getDescription())).toList();
+       return categoryRepo.findByStatus(Status.Active).stream().map(categoryEntity->new CategoryDto(categoryEntity.getId(),categoryEntity.getName(),categoryEntity.getDescription())).toList();
     }
 
     public CategoryDto getCategoryById(Long id){
-        CategoryEntity category =categoryRepo.findById(id).orElseThrow();
+        CategoryEntity category =categoryRepo.findById(id).filter(c->c.getStatus()== Status.Active).orElseThrow(()-> new RuntimeException("category is not present"));
         return new CategoryDto(category.getId(),category.getName(),category.getDescription());
     }
 
@@ -42,7 +45,8 @@ public class CategoryService {
             CategoryDto category = getCategoryById(id);
 
 
-            CategoryEntity categoryEntity = categoryRepo.save(new CategoryEntity(id, c.name(), c.description()));
+
+            CategoryEntity categoryEntity = categoryRepo.save(new CategoryEntity(id, c.name(), c.description(), LocalDate.now()));
             return new CategoryDto(categoryEntity.getId(), categoryEntity.getName(), categoryEntity.getDescription());
         }
         catch (Exception e) {

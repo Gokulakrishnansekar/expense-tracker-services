@@ -8,11 +8,13 @@ import com.tracker.expense_tracker.model.CategoryClient;
 import com.tracker.expense_tracker.repository.ExpensesRepository;
 import com.tracker.expense_tracker.specification.ExpenseSpecification;
 import com.tracker.expense_tracker.specification.ExpenseSpecificationFilter;
+import com.tracker.shared_services.kafka.constants.Status;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -85,8 +87,8 @@ public class ExpenseService {
         expense.setCategory_id(expenseDto.getCategory_id());
         expense.setTitle(expenseDto.getTitle());
         expense.setUserName(expenseDto.getUserName());
-        expense.setDate(expenseDto.getDate());
         expense.setAmount(expenseDto.getAmount());
+        expense.setLastModifiedDate(LocalDate.now());
            return expense;
     }
 
@@ -104,7 +106,8 @@ public class ExpenseService {
     public ExpenseResponseDTO getExpenseById(Long l)
     {
 
-       Expense e=  expensesRepository.findById(l).orElseThrow(ExpenseNotFoundException::new);
+       Expense e=  expensesRepository.findById(l).filter(ex->ex.getStatus()==Status.Active).orElseThrow(ExpenseNotFoundException::new);
+
          return  convertToExpenseDTO(e);
     }
 

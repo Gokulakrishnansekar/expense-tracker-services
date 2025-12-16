@@ -6,13 +6,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 @Service
 @RequiredArgsConstructor
 public class DbTransaction {
     private final ExpensesRepository expensesRepository;
     @Transactional
     public void updateExpenseDelete(long id, Status status){
-        expensesRepository.updateDelete(id,status);
+        expensesRepository.updateDelete(id,status, LocalDate.now());
 
     }
 }

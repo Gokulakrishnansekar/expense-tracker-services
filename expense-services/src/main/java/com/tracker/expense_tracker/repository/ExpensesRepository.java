@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -28,8 +29,10 @@ public interface ExpensesRepository extends JpaRepository<Expense,Long> , JpaSpe
                                                       @Param("endDate") LocalDate endDate);
 
     @Modifying
-    @Query("update Expense e set e.status=:status where e.category_id = :id")
-    void updateDelete(@Param("id") Long id, Status status);
+    @Query("update Expense e set e.status=:status,e.lastModifiedDate= :lastModifiedDate where e.category_id = :id ")
+    void updateDelete(@Param("id") Long id, Status status ,@Param("lastModifiedDate") LocalDate lastModifiedDate);
+
+
 }
 
 

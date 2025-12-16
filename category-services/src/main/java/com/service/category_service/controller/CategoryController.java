@@ -43,8 +43,8 @@ public class CategoryController {
 
     @Operation(description = "update  Category")
     @PutMapping("/{id}")
-    public CategoryDto updateCategory(@PathVariable Long id,@RequestParam() CategoryDto categoryDto){
-
+    public CategoryDto updateCategory(@PathVariable Long id,@RequestBody() CategoryDto categoryDto){
+        System.out.println(categoryDto.toString());
         return  categoryService.updateCategory(id,categoryDto);
     }
     @Operation(description = "Get Category by name")

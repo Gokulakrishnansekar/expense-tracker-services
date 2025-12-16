@@ -16,6 +16,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CurrentTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name="expenses")
@@ -55,6 +56,9 @@ public class Expense {
     @Column(name="created_date")
     @CurrentTimestamp()
     private String createDate;
+
+    @Column(name="last_modified_date")
+    private LocalDate  lastModifiedDate;
 
     @Column(name="status")
     @Enumerated( EnumType.STRING)

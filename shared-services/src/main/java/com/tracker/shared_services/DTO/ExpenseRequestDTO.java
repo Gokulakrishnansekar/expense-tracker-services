@@ -18,7 +18,7 @@ public class ExpenseRequestDTO {
 
     private Double amount;
 
-    private LocalDate date;
+    //private LocalDate date;
 
     private Long category_id;
 
@@ -27,7 +27,6 @@ public class ExpenseRequestDTO {
         return "ExpenseRequestDTO{" +
                 "title='" + title + '\'' +
                 ", amount=" + amount +
-                ", date=" + date +
                 ", category_id=" + category_id +
                 ", userName='" + userName + '\'' +
                 '}';

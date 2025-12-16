@@ -1,6 +1,7 @@
 package com.tracker.expense_tracker.specification;
 
 import com.tracker.expense_tracker.Entity.Expense;
+import com.tracker.shared_services.kafka.constants.Status;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
@@ -13,11 +14,8 @@ public class ExpenseSpecification  {
     public  static Specification<Expense> filterBy(ExpenseSpecificationFilter expenseSpecificationFilter){
         return (root ,query,cb)->{
             List<Predicate> predicate=new ArrayList<>();
+            predicate.add(cb.equal(root.get("status"), Status.Active));
 
-            if(expenseSpecificationFilter.getCategory()!=null && !expenseSpecificationFilter.getCategory().isEmpty()){
-
-                predicate.add(cb.like(cb.lower(root.get("category")),"%"+ expenseSpecificationFilter.getCategory().toLowerCase()+"%"));
-            }
             if(expenseSpecificationFilter.getMinAmount()!=null && expenseSpecificationFilter.getMaxAmount()!=null){
 
                 predicate.add(cb.between(root.get("amount"),expenseSpecificationFilter.getMinAmount(),expenseSpecificationFilter.getMaxAmount()));
