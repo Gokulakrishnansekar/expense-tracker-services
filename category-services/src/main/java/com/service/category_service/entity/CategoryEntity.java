@@ -16,6 +16,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 
 public class CategoryEntity {
     public CategoryEntity(String name, String description) {

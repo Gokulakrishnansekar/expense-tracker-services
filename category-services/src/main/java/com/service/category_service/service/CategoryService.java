@@ -12,6 +12,7 @@ import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -30,7 +31,8 @@ public class CategoryService {
     }
 
     public CategoryDto getCategoryById(Long id){
-        CategoryEntity category =categoryRepo.findById(id).filter(c->c.getStatus()== Status.Active).orElseThrow(()-> new RuntimeException("category is not present"));
+        CategoryEntity category =categoryRepo.findById(id).filter(c->c.getStatus()== Status.Active).
+                orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"category is not present"));
         return new CategoryDto(category.getId(),category.getName(),category.getDescription());
     }
 
