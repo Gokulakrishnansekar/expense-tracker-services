@@ -26,7 +26,7 @@ public interface CategoryRepo extends JpaRepository<CategoryEntity,Long> {
     @Query("""
     DELETE FROM CategoryEntity c
     WHERE c.status = :status
-    AND c.lastModifiedDate < :cutoff
+    AND c.lastModifiedDate <= :cutoff
 """)
     void deleteOldSoftDeleted(
             @Param("status") Status status,

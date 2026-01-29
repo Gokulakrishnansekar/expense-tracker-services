@@ -20,9 +20,9 @@ public class DbTransaction {
     }
 
     @Transactional
-    @Scheduled(cron = "* * * * * ?")
+    @Scheduled(cron = "0 0 9 1 * *")
     public  void cleanDeletedCategory(){
-        System.out.println("running");
-       // categoryRepo.deleteOldSoftDeleted(Status.Deleted,LocalDate.now().minusDays(1));
+        System.out.println(LocalDate.now().minusDays(1));
+        categoryRepo.deleteOldSoftDeleted(Status.Deleted,LocalDate.now().minusDays(1));
     }
 }
